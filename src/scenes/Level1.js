@@ -17,6 +17,7 @@ export default class Level1 extends Phaser.Scene {
 		this.player.setCollideWorldBounds(true);
 		this.player.setScale(2);
 		this.player.setBounce(0.2);
+		// this.cameras.main.startFollow(this.player);
 
 		this.anims.create({
 			key: "run",
@@ -30,6 +31,16 @@ export default class Level1 extends Phaser.Scene {
 			frames: this.anims.generateFrameNumbers("player", {
 				start: 0,
 				end: 3,
+			}),
+			frameRate: 2,
+			repeat: -1,
+		});
+
+		this.anims.create({
+			key: "fall",
+			frames: this.anims.generateFrameNumbers("player", {
+				start: 7,
+				end: 8,
 			}),
 			frameRate: 2,
 			repeat: -1,
@@ -60,6 +71,9 @@ export default class Level1 extends Phaser.Scene {
 		// }
 		if (cursors.up.isDown) {
 			this.player.setVelocityY(-200);
+		} else if (cursors.down.isDown) {
+			this.player.setVelocityY(350);
+			this.player.anims.play("fall", true);
 		}
 	}
 }
