@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import BeginningCutScene from "./scenes/BeginningCutscene";
 import Level1 from "./scenes/Level1";
 
 const config = {
@@ -11,7 +12,7 @@ const config = {
 		default: "arcade",
 		arcade: {
 			gravity: { y: 300 },
-			debug: true,
+			debug: false,
 		},
 	},
 };

@@ -1,14 +1,11 @@
 import Phaser from "phaser";
 import PlayerImg from "../assets/player.png";
-import mapCsv from "../assets/Maps/Level1/map.csv";
-import mapImg from "../assets/Maps/Level1/map.png";
 export default class Level1 extends Phaser.Scene {
 	constructor() {
 		super("Level1");
 	}
 
 	preload() {
-		// this.load.tilemapCSV("MapCsv", mapCsv);
 		this.load.spritesheet("player", PlayerImg, {
 			frameWidth: 50,
 			frameHeight: 37,
@@ -48,8 +45,6 @@ export default class Level1 extends Phaser.Scene {
 			frameRate: 2,
 			repeat: -1,
 		});
-
-		this.cameras.main.fadeIn(1000);
 	}
 
 	update() {
