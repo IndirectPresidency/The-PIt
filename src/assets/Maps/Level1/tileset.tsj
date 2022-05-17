@@ -1,0 +1,14 @@
+{ "columns":32,
+ "image":"..\/..\/Base Tileset\/PNG\/Tileset Base.png",
+ "imageheight":576,
+ "imagewidth":1024,
+ "margin":0,
+ "name":"Tileset Base",
+ "spacing":0,
+ "tilecount":576,
+ "tiledversion":"1.8.4",
+ "tileheight":32,
+ "tilewidth":32,
+ "type":"tileset",
+ "version":"1.8"
+}

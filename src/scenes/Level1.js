@@ -1,26 +1,32 @@
 import Phaser from "phaser";
 import PlayerImg from "../assets/player.png";
-import mapCsv from "../assets/Maps/Level1/map.csv";
-import mapImg from "../assets/Maps/Level1/map.png";
+import mapJson from "../assets/Maps/Level1/map.json";
+import tilesetBase from "../assets/Base Tileset/PNG/Tileset Base.png";
 export default class Level1 extends Phaser.Scene {
 	constructor() {
 		super("Level1");
 	}
 
 	preload() {
-		// this.load.tilemapCSV("MapCsv", mapCsv);
 		this.load.spritesheet("player", PlayerImg, {
 			frameWidth: 50,
 			frameHeight: 37,
 		});
+		this.load.image("tiles", tilesetBase);
+		this.load.tilemapTiledJSON("map", mapJson);
 	}
 
 	create() {
-		this.player = this.physics.add.sprite(100, 100, "player");
-		this.player.setCollideWorldBounds(true);
-		this.player.setScale(2);
+		const map = this.make.tilemap({ key: "map" });
+		const tileset = map.addTilesetImage("Tileset Base", "tiles");
+		this.layer = map.createLayer("Tile Layer 1", tileset, 0, 0);
+		this.layer.setCollisionByExclusion(-1, true);
+
+		this.player = this.physics.add.sprite(500, 100, "player");
+		// this.player.setCollideWorldBounds(true);
+		this.player.setScale(1.7);
 		this.player.setBounce(0.2);
-		// this.cameras.main.startFollow(this.player);
+		this.cameras.main.startFollow(this.player);
 
 		this.anims.create({
 			key: "run",
@@ -71,14 +77,15 @@ export default class Level1 extends Phaser.Scene {
 			this.player.anims.play("idle", true);
 		}
 
-		// if (cursors.up.isDown && this.player.body.touching.down) {
-		// 	this.player.setVelocityY(-330);
-		// }
-		if (cursors.up.isDown) {
+		console.log(this.player.body.touching.down);
+
+		if (cursors.up.isDown && this.player.body.touching.down) {
 			this.player.setVelocityY(-200);
 		} else if (cursors.down.isDown) {
 			this.player.setVelocityY(350);
 			this.player.anims.play("fall", true);
 		}
+
+		this.physics.add.collider(this.player, this.layer);
 	}
 }
